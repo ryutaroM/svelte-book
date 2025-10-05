@@ -1,4 +1,5 @@
 <script>
+  import Slider from "./Slider.svelte";
   let cart = [];
 
   function addToCart(productId) {
@@ -33,24 +34,6 @@
       price: 3500,
     },
   ];
-
-  let sliderCenterIndex = 0;
-  let sliderLeftIndex = product.images.length - 1;
-  let sliderRightIndex = 1;
-
-  function sliderMoveLeft() {
-    const length = product.images.length;
-    sliderCenterIndex = (sliderCenterIndex - 1 + length) % length;
-    sliderLeftIndex = (sliderCenterIndex - 1 + length) % length;
-    sliderRightIndex = (sliderCenterIndex + 1) % length;
-  }
-
-  function sliderMoveRight() {
-    const length = product.images.length;
-    sliderCenterIndex = (sliderCenterIndex + 1) % length;
-    sliderLeftIndex = (sliderCenterIndex - 1 + length) % length;
-    sliderRightIndex = (sliderCenterIndex + 1) % length;
-  }
 </script>
 
 <header class="header">
@@ -66,26 +49,7 @@
 <article class="product">
   <div class="product-main">
     <div class="image-container">
-      <div class="slider">
-        <img
-          src={product.images[sliderLeftIndex]}
-          alt="スライダー画像（左）"
-          class="slider-item left"
-        />
-        <img
-          src={product.images[sliderCenterIndex]}
-          alt="スライダー画像（中央）"
-          class="slider-item"
-        />
-        <img
-          src={product.images[sliderRightIndex]}
-          alt="スライダー画像（右）"
-          class="slider-item right"
-        />
-        <button class="slider-left-button" on:click={sliderMoveLeft}>←</button>
-        <button class="slider-right-button" on:click={sliderMoveRight}>→</button
-        >
-      </div>
+      <Slider images={product.images} />
     </div>
     <div>
       <h2>{product.name}</h2>
